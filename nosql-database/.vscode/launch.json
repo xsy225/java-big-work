@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "com.nosql.db.App",
+            "projectName": "nosql-database",
+            "vmArgs": "-Xmx512m -XX:+UseG1GC"
+        }
+    ]
+}
