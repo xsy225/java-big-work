@@ -16,30 +16,41 @@
         <maven.compiler.target>17</maven.compiler.target>
         <java.version>17</java.version>
         <slf4j.version>2.0.7</slf4j.version>
-        <gson.version>2.10.1</gson.version>
+        <gson.version>2.10.1</gson.version> <!-- 明确指定Gson版本 -->
         <junit.version>5.10.1</junit.version>
         <maven.compiler.plugin.version>3.12.0</maven.compiler.plugin.version>
         <maven.surefire.plugin.version>3.1.2</maven.surefire.plugin.version>
-        <main.class>com.nosql.db.App</main.class> <!-- 定义默认主类 -->
+        <main.class>com.nosql.db.App</main.class>
     </properties>
 
     <dependencies>
+        <!-- SLF4J 日志 -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>runtime</scope>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.8</version>
         </dependency>
+
+        <!-- Gson 依赖（强制指定版本，添加exclusions避免冲突） -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
+            <exclusions>
+                <!-- 排除所有传递依赖，确保唯一版本 -->
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+
+        <!-- 测试依赖 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -50,6 +61,7 @@
 
     <build>
         <plugins>
+            <!-- 编译器插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -57,18 +69,21 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
-            
+
+            <!-- 测试插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.plugin.version}</version>
                 <configuration>
-                    <skipTests>true</skipTests>
+                    <skipTests>${skip.tests}</skipTests> <!-- 可通过属性控制是否跳过测试 -->
                 </configuration>
             </plugin>
-            
+
+            <!-- JAR 打包插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -77,25 +92,26 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>${main.class}</mainClass> <!-- 保留打包时的主类配置 -->
+                            <mainClass>${main.class}</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
-            
+
+            <!-- 组装插件（含依赖） -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.6.0</version>
                 <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>${main.class}</mainClass> <!-- 保留打包时的主类配置 -->
-                        </manifest>
-                    </archive>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>${main.class}</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
                 <executions>
                     <execution>
@@ -107,17 +123,39 @@
                     </execution>
                 </executions>
             </plugin>
-            
-            <!-- 修改后的 exec-maven-plugin 配置，移除默认主类 -->
+
+            <!-- 执行插件（用于命令行运行） -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.0</version>
+                <!-- 修改点：移除默认的mainClass配置，允许通过命令行-Dexec.mainClass指定 -->
                 <configuration>
-                    <!-- 移除默认主类配置，让命令行参数生效 -->
-                    <!-- <mainClass>${main.class}</mainClass> -->
+                    <!-- 不设置mainClass，避免与命令行参数冲突 -->
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <!-- 新增：强制更新依赖配置 -->
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 </project>

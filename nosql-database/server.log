@@ -1,0 +1,86 @@
+2025-06-01 14:54:59 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 已成功连接到服务器: localhost:8888
+2025-06-01 14:54:59 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 欢迎使用NoSQL数据库客户端！
+2025-06-01 14:54:59 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 支持的命令: INSERT, GET, UPDATE, DELETE, EXIT
+2025-06-01 14:55:32 [com.nosql.db.client.NoSQLClient.main()] DEBUG com.nosql.db.storage.Document - 创建新文档，ID: 7a7aac70-5c5e-4b88-bf64-7551d5867224
+2025-06-01 14:55:32 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - INSERT操作结果: 成功
+2025-06-01 14:55:59 [com.nosql.db.client.NoSQLClient.main()] ERROR com.nosql.db.client.NoSQLClient - 用法: GET <集合名> <文档ID>
+2025-06-01 14:57:10 [com.nosql.db.client.NoSQLClient.main()] ERROR com.nosql.db.client.NoSQLClient - 用法: GET <集合名> <文档ID>
+2025-06-01 14:57:52 [com.nosql.db.client.NoSQLClient.main()] ERROR com.nosql.db.client.NoSQLClient - 用法: GET <集合名> <文档ID>
+2025-06-01 14:59:00 [com.nosql.db.client.NoSQLClient.main()] ERROR com.nosql.db.client.NoSQLClient - 用法: GET <集合名> <文档ID>
+2025-06-01 14:59:24 [com.nosql.db.client.NoSQLClient.main()] ERROR com.nosql.db.client.NoSQLClient - 用法: GET <集合名> <文档ID>
+2025-06-01 15:00:05 [com.nosql.db.client.NoSQLClient.main()] ERROR com.nosql.db.client.NoSQLClient - 用法: GET <集合名> <文档ID>
+2025-06-01 15:01:16 [com.nosql.db.client.NoSQLClient.main()] ERROR com.nosql.db.client.NoSQLClient - 用法: GET <集合名> <文档ID>
+2025-06-01 15:01:44 [com.nosql.db.client.NoSQLClient.main()] ERROR com.nosql.db.client.NoSQLClient - 用法: GET <集合名> <文档ID>
+2025-06-01 15:02:22 [com.nosql.db.client.NoSQLClient.main()] ERROR com.nosql.db.client.NoSQLClient - 用法: GET <集合名> <文档ID>
+2025-06-01 15:28:05 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 已成功连接到服务器: localhost:8888
+2025-06-01 15:28:05 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 欢迎使用NoSQL数据库客户端！
+2025-06-01 15:28:05 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 支持的命令: INSERT, GET, UPDATE, DELETE, EXIT
+2025-06-01 15:28:21 [com.nosql.db.client.NoSQLClient.main()] DEBUG com.nosql.db.storage.Document - 创建新文档，ID: 085c4001-87c4-43ee-a939-21e81107f011
+2025-06-01 16:16:34 [com.nosql.db.App.main()] INFO  com.nosql.db.App - 启动NoSQL数据库应用
+2025-06-01 16:16:34 [com.nosql.db.App.main()] INFO  com.nosql.db.App - 初始化数据目录: data
+2025-06-01 16:16:34 [com.nosql.db.App.main()] INFO  com.nosql.db.App - 初始化预写日志
+2025-06-01 16:16:34 [com.nosql.db.App.main()] INFO  com.nosql.db.storage.WriteAheadLog - 找到1个WAL文件
+2025-06-01 16:16:34 [com.nosql.db.App.main()] INFO  com.nosql.db.storage.WriteAheadLog - 找到现有WAL文件: wal_1748703643259.wal, 大小: 0 字节
+2025-06-01 16:16:34 [com.nosql.db.App.main()] INFO  com.nosql.db.storage.WriteAheadLog - WAL初始化完成，目录: data
+2025-06-01 16:16:34 [com.nosql.db.App.main()] INFO  com.nosql.db.App - 初始化索引管理器
+2025-06-01 16:16:34 [com.nosql.db.App.main()] INFO  com.nosql.db.index.IndexManager - 索引管理器初始化完成
+2025-06-01 16:16:34 [com.nosql.db.App.main()] INFO  com.nosql.db.App - 初始化数据库引擎
+2025-06-01 16:16:34 [com.nosql.db.App.main()] INFO  com.nosql.db.storage.DatabaseEngine - 数据库引擎初始化完成，数据目录: data
+2025-06-01 16:16:34 [com.nosql.db.App.main()] INFO  com.nosql.db.App - 创建默认集合: users
+2025-06-01 16:16:34 [com.nosql.db.App.main()] INFO  com.nosql.db.storage.DatabaseEngine - 尝试创建集合: users
+2025-06-01 16:16:34 [com.nosql.db.App.main()] INFO  com.nosql.db.storage.Collection - 加载集合users的文档
+2025-06-01 16:16:34 [com.nosql.db.App.main()] INFO  com.nosql.db.storage.Collection - 集合users初始化完成，文档数量: 0
+2025-06-01 16:16:34 [com.nosql.db.App.main()] INFO  com.nosql.db.storage.DatabaseEngine - 集合创建成功: users
+2025-06-01 16:16:34 [com.nosql.db.App.main()] DEBUG c.nosql.db.storage.OperationResult - 创建操作结果: 成功=true, 消息=集合创建成功: users
+2025-06-01 16:16:34 [com.nosql.db.App.main()] INFO  com.nosql.db.App - 准备启动服务器，端口: 8888
+2025-06-01 16:16:34 [com.nosql.db.App.main()] INFO  com.nosql.db.server.NoSQLServer - 服务器已关闭
+2025-06-01 16:16:34 [com.nosql.db.App.main()] INFO  com.nosql.db.App - NoSQL服务器已成功启动，监听端口: 8888
+2025-06-01 16:20:38 [com.nosql.db.App.main()] INFO  com.nosql.db.App - 启动NoSQL数据库应用
+2025-06-01 16:20:38 [com.nosql.db.App.main()] INFO  com.nosql.db.App - 初始化数据目录: data
+2025-06-01 16:20:38 [com.nosql.db.App.main()] INFO  com.nosql.db.App - 初始化预写日志
+2025-06-01 16:20:38 [com.nosql.db.App.main()] INFO  com.nosql.db.storage.WriteAheadLog - 找到1个WAL文件
+2025-06-01 16:20:38 [com.nosql.db.App.main()] INFO  com.nosql.db.storage.WriteAheadLog - 找到现有WAL文件: wal_1748703643259.wal, 大小: 0 字节
+2025-06-01 16:20:38 [com.nosql.db.App.main()] INFO  com.nosql.db.storage.WriteAheadLog - WAL初始化完成，目录: data
+2025-06-01 16:20:38 [com.nosql.db.App.main()] INFO  com.nosql.db.App - 初始化索引管理器
+2025-06-01 16:20:38 [com.nosql.db.App.main()] INFO  com.nosql.db.index.IndexManager - 索引管理器初始化完成
+2025-06-01 16:20:38 [com.nosql.db.App.main()] INFO  com.nosql.db.App - 初始化数据库引擎
+2025-06-01 16:20:38 [com.nosql.db.App.main()] INFO  com.nosql.db.storage.DatabaseEngine - 数据库引擎初始化完成，数据目录: data
+2025-06-01 16:20:38 [com.nosql.db.App.main()] INFO  com.nosql.db.App - 创建默认集合: users
+2025-06-01 16:20:38 [com.nosql.db.App.main()] INFO  com.nosql.db.storage.DatabaseEngine - 尝试创建集合: users
+2025-06-01 16:20:38 [com.nosql.db.App.main()] INFO  com.nosql.db.storage.Collection - 加载集合users的文档
+2025-06-01 16:20:38 [com.nosql.db.App.main()] INFO  com.nosql.db.storage.Collection - 集合users初始化完成，文档数量: 0
+2025-06-01 16:20:38 [com.nosql.db.App.main()] INFO  com.nosql.db.storage.DatabaseEngine - 集合创建成功: users
+2025-06-01 16:20:38 [com.nosql.db.App.main()] DEBUG c.nosql.db.storage.OperationResult - 创建操作结果: 成功=true, 消息=集合创建成功: users
+2025-06-01 16:20:38 [com.nosql.db.App.main()] INFO  com.nosql.db.App - 准备启动服务器，端口: 8888
+2025-06-01 16:20:38 [com.nosql.db.App.main()] INFO  com.nosql.db.server.NoSQLServer - 服务器已关闭
+2025-06-01 16:20:38 [com.nosql.db.App.main()] INFO  com.nosql.db.App - NoSQL服务器已成功启动，监听端口: 8888
+2025-06-01 16:26:05 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 已成功连接到服务器: localhost:8888
+2025-06-01 16:26:05 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 欢迎使用NoSQL数据库客户端！
+2025-06-01 16:26:05 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 支持的命令:
+2025-06-01 16:26:05 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   INSERT <集合名> <JSON文档>
+2025-06-01 16:26:05 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   UPDATE <集合名> <JSON文档>
+2025-06-01 16:26:05 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   GET <集合名> <文档ID>
+2025-06-01 16:26:05 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   DELETE <集合名> <文档ID>
+2025-06-01 16:26:05 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   EXIT
+2025-06-01 16:26:52 [com.nosql.db.client.NoSQLClient.main()] DEBUG com.nosql.db.storage.Document - 创建新文档，ID: 69cca12d-9546-4e81-9c47-84cbba280033
+2025-06-01 16:26:52 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - INSERT操作结果: 成功
+2025-06-01 16:27:24 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - GET操作结果: 文档内容: {id=69cca12d-9546-4e81-9c47-84cbba280033, data={}, createdAt=1.748766412108E12, updatedAt=1.748766412108E12}
+2025-06-01 16:28:00 [com.nosql.db.client.NoSQLClient.main()] DEBUG com.nosql.db.storage.Document - 创建新文档，ID: 461e0706-e329-4754-948a-10e01de250a7
+2025-06-01 16:28:00 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - UPDATE操作结果: 成功
+2025-06-01 16:28:33 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 已断开与服务器的连接
+2025-06-01 16:29:13 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 已成功连接到服务器: localhost:8888
+2025-06-01 16:29:13 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 欢迎使用NoSQL数据库客户端！
+2025-06-01 16:29:13 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 支持的命令:
+2025-06-01 16:29:13 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   INSERT <集合名> <JSON文档>
+2025-06-01 16:29:13 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   UPDATE <集合名> <JSON文档>
+2025-06-01 16:29:13 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   GET <集合名> <文档ID>
+2025-06-01 16:29:13 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   DELETE <集合名> <文档ID>
+2025-06-01 16:29:13 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   EXIT
+2025-06-01 16:29:37 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 已成功连接到服务器: localhost:8888
+2025-06-01 16:29:37 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 欢迎使用NoSQL数据库客户端！
+2025-06-01 16:29:37 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 支持的命令:
+2025-06-01 16:29:37 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   INSERT <集合名> <JSON文档>
+2025-06-01 16:29:37 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   UPDATE <集合名> <JSON文档>
+2025-06-01 16:29:37 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   GET <集合名> <文档ID>
+2025-06-01 16:29:37 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   DELETE <集合名> <文档ID>
+2025-06-01 16:29:37 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   EXIT

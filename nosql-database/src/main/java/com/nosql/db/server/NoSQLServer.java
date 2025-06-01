@@ -1,19 +1,16 @@
 package com.nosql.db.server;
 
-import com.google.gson.Gson;
-import com.nosql.db.storage.DatabaseEngine;
-import com.nosql.db.storage.Document;
-import com.nosql.db.storage.OperationResult;
-import java.io.BufferedReader;  // 添加导入
 import java.io.IOException;
-import java.io.InputStreamReader;  // 添加导入
-import java.io.PrintWriter;  // 添加导入
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.nosql.db.storage.DatabaseEngine;
 
 public class NoSQLServer {
+    private static final Logger logger = LoggerFactory.getLogger(NoSQLServer.class);
     private final int port;
     private final ExecutorService threadPool;
     private final DatabaseEngine databaseEngine;
@@ -30,68 +27,32 @@ public class NoSQLServer {
         try {
             serverSocket = new ServerSocket(port);
             running = true;
-            System.out.println("服务器启动，监听端口: " + port);
+            logger.info("服务器启动，监听端口: {}", port);
             databaseEngine.recoverFromWal();
-            
+            logger.info("完成WAL日志恢复");
+
             while (running) {
                 Socket clientSocket = serverSocket.accept();
+                logger.info("新客户端连接: {}", clientSocket.getInetAddress());
                 threadPool.execute(() -> handleClient(clientSocket));
             }
         } catch (IOException e) {
-            System.err.println("服务器启动失败: " + e.getMessage());
+            if (running) { // 忽略关闭时的异常
+                logger.error("服务器启动失败: {}", e.getMessage());
+            }
         } finally {
             shutdown();
         }
     }
 
     private void handleClient(Socket clientSocket) {
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
-            
-            String request = in.readLine();
-            if (request == null) return;
-            
-            OperationResult result = processRequest(request);
-            out.println(new Gson().toJson(result));
-            
-        } catch (IOException e) {
-            System.err.println("客户端处理错误: " + e.getMessage());
-        }
-    }
-
-    private OperationResult processRequest(String request) {
-        try {
-            String[] parts = request.split(" ", 4);
-            if (parts.length < 3) return new OperationResult(false, "无效请求格式");
-            
-            String cmd = parts[0].toUpperCase();
-            String collection = parts[1];
-            String docId = parts[2];
-            String data = parts.length > 3 ? parts[3] : null;
-            
-            switch (cmd) {
-                case "INSERT":
-                    if (data == null) return new OperationResult(false, "缺少文档数据");
-                    return databaseEngine.insertDocument(collection, Document.fromJson(data));
-                    
-                case "UPDATE":
-                    if (data == null) return new OperationResult(false, "缺少文档数据");
-                    return databaseEngine.updateDocument(collection, Document.fromJson(data));
-                    
-                case "DELETE":
-                    return databaseEngine.deleteDocument(collection, docId);
-                    
-                case "GET":
-                    return databaseEngine.getDocument(collection, docId);
-                    
-                case "GET_ALL":
-                    return databaseEngine.getAllDocuments(collection);
-                    
-                default:
-                    return new OperationResult(false, "未知命令: " + cmd);
-            }
+        try (clientSocket) {
+            logger.debug("开始处理客户端请求: {}", clientSocket.getInetAddress());
+            ClientHandler handler = new ClientHandler(clientSocket, databaseEngine);
+            handler.run();
+            logger.debug("完成处理客户端请求: {}", clientSocket.getInetAddress());
         } catch (Exception e) {
-            return new OperationResult(false, "请求处理失败: " + e.getMessage());
+            logger.error("客户端处理异常: {}", e.getMessage());
         }
     }
 
@@ -101,8 +62,11 @@ public class NoSQLServer {
         try {
             if (serverSocket != null && !serverSocket.isClosed()) {
                 serverSocket.close();
+                logger.info("服务器套接字已关闭");
             }
-        } catch (IOException e) { /* 忽略 */ }
-        System.out.println("服务器已关闭");
+        } catch (IOException e) {
+            logger.warn("关闭服务器套接字时发生异常: {}", e.getMessage());
+        }
+        logger.info("服务器已关闭");
     }
 }
