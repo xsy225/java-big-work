@@ -1,0 +1,21 @@
+2025-06-23 19:39:08 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 已成功连接到服务器: localhost:8888
+2025-06-23 19:39:08 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 欢迎使用NoSQL数据库客户端！
+2025-06-23 19:39:08 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 支持的命令:
+2025-06-23 19:39:08 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   INSERT <集合名> <JSON文档>
+2025-06-23 19:39:08 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   UPDATE <集合名> <JSON文档>
+2025-06-23 19:39:08 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   GET <集合名> <文档ID>
+2025-06-23 19:39:08 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   DELETE <集合名> <文档ID>
+2025-06-23 19:39:08 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient -   EXIT
+2025-06-23 19:42:17 [com.nosql.db.client.NoSQLClient.main()] DEBUG com.nosql.db.storage.Document - 创建新文档，ID: 9c7b42d1-c03d-4986-82f9-d633e436ef0b
+2025-06-23 19:42:17 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - INSERT操作结果: 成功
+2025-06-23 19:42:52 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - GET操作结果: 失败: Document涓嶅瓨鍦?: 5f9d3e8b-cf3d-4b4a-8e4a-8b3e8b3e8b3e
+2025-06-23 19:44:34 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - GET操作结果: 文档内容: {id=9c7b42d1-c03d-4986-82f9-d633e436ef0b, data={}, createdAt=1.750678937439E12, updatedAt=1.750678937439E12}
+2025-06-23 19:48:25 [com.nosql.db.client.NoSQLClient.main()] ERROR com.nosql.db.client.NoSQLClient - 未知命令: NOSQL>
+2025-06-23 19:48:25 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 可用命令: INSERT, UPDATE, GET, DELETE, EXIT
+2025-06-23 19:48:29 [com.nosql.db.client.NoSQLClient.main()] ERROR com.nosql.db.client.NoSQLClient - 未知命令: NOSQL>
+2025-06-23 19:48:29 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - 可用命令: INSERT, UPDATE, GET, DELETE, EXIT
+2025-06-23 19:49:30 [com.nosql.db.client.NoSQLClient.main()] DEBUG com.nosql.db.storage.Document - 创建新文档，ID: 09e86755-a7dc-4fea-8c89-a81c95b09bfa
+2025-06-23 19:49:30 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - UPDATE操作结果: 成功
+2025-06-23 19:49:46 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - GET操作结果: 文档内容: {id=9c7b42d1-c03d-4986-82f9-d633e436ef0b, data={}, createdAt=1.750679370667E12, updatedAt=1.750679370667E12}
+2025-06-23 19:50:06 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - DELETE操作结果: 成功
+2025-06-23 19:50:26 [com.nosql.db.client.NoSQLClient.main()] INFO  com.nosql.db.client.NoSQLClient - GET操作结果: 失败: Document涓嶅瓨鍦?: 9c7b42d1-c03d-4986-82f9-d633e436ef0b
