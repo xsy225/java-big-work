@@ -37,7 +37,7 @@ public class NoSQLServer {
                 threadPool.execute(() -> handleClient(clientSocket));
             }
         } catch (IOException e) {
-            if (running) { // 忽略关闭时的异常
+            if (running) {
                 logger.error("服务器启动失败: {}", e.getMessage());
             }
         } finally {

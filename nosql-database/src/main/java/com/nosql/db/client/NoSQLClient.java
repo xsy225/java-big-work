@@ -6,20 +6,14 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.nosql.db.storage.Document;
 import com.nosql.db.storage.OperationResult;
 
-/**
- * NoSQL数据库的客户端类，负责连接到服务器并发送操作请求。
- * 此类不包含任何服务器启动逻辑，仅作为客户端与已运行的服务器通信。
- */
 public class NoSQLClient {
     private static final Logger logger = LoggerFactory.getLogger(NoSQLClient.class);
     private final String host;
@@ -34,11 +28,6 @@ public class NoSQLClient {
         this.port = port;
     }
 
-    /**
-     * 连接到指定的服务器
-     * 
-     * @throws IOException 如果连接失败（例如服务器未运行或端口被占用）
-     */
     public void connect() throws IOException {
         try {
             socket = new Socket(host, port);
@@ -80,9 +69,6 @@ public class NoSQLClient {
                 return new OperationResult(false, "服务器响应为空，可能已断开连接");
             }
 
-            // 新增调试日志，输出原始响应内容
-            logger.trace("收到原始响应: {}", response);
-
             try {
                 OperationResult result = gson.fromJson(response, OperationResult.class);
                 logger.debug("解析响应成功: {}", result.isSuccess() ? "成功" : "失败");
@@ -113,49 +99,13 @@ public class NoSQLClient {
         return sendCommand("DELETE", collection, id, null);
     }
 
-    // 处理JSON命令的核心方法（修改错误处理部分）
     private OperationResult handleJsonCommand(String cmd, String collection, String jsonStr) {
         try {
-            // 预校验JSON格式
             JsonParser.parseString(jsonStr);
-
-            // 解析文档
             Document doc = gson.fromJson(jsonStr, Document.class);
-
-            // 执行操作
             return (cmd.equals("INSERT")) ? insert(collection, doc) : update(collection, doc);
         } catch (JsonParseException e) {
             logger.error("无效的JSON格式: {}", e.getMessage());
-
-            // 从异常信息中提取行号和列号（兼容所有Gson版本）
-            int lineNumber = -1, columnNumber = -1;
-            String errorMsg = e.getMessage();
-            if (errorMsg != null) {
-                // 解析行号（格式："line X column Y"）
-                int lineStart = errorMsg.indexOf("line ");
-                if (lineStart != -1) {
-                    int endIndex = errorMsg.indexOf(' ', lineStart + 5);
-                    if (endIndex != -1) {
-                        lineNumber = Integer.parseInt(errorMsg.substring(lineStart + 5, endIndex));
-                    }
-                }
-                // 解析列号
-                int columnStart = errorMsg.indexOf("column ");
-                if (columnStart != -1) {
-                    int endIndex = errorMsg.indexOf(' ', columnStart + 7);
-                    if (endIndex != -1) {
-                        columnNumber = Integer.parseInt(errorMsg.substring(columnStart + 7, endIndex));
-                    }
-                }
-            }
-            logger.info("错误位置: 行{}列{}", lineNumber, columnNumber);
-
-            logger.info("JSON语法提示:");
-            logger.info("  1. 键名必须用双引号包裹");
-            logger.info("  2. 字符串值必须用双引号包裹");
-            logger.info("  3. 使用冒号分隔键值对，逗号分隔多个字段");
-            logger.info("  4. 对象用{}包裹，数组用[]包裹");
-
             return new OperationResult(false, "无效的JSON格式: " + e.getMessage());
         } catch (Exception e) {
             logger.error("处理{}请求时发生异常: {}", cmd.toLowerCase(), e.getMessage());
@@ -164,7 +114,6 @@ public class NoSQLClient {
     }
 
     public static void main(String[] args) {
-        // 检查命令行参数是否包含主机和端口
         String host = "localhost";
         int port = 8888;
 
@@ -200,9 +149,6 @@ public class NoSQLClient {
                 if (input.isEmpty())
                     continue;
 
-                // 清理输入：保留必要字符（字母、数字、空格、JSON符号、点号、连字符）
-                input = input.replaceAll("[^a-zA-Z0-9\\s{}\\[\\]\"':,.-]", "");
-
                 String[] parts = input.split("\\s+", 2);
                 if (parts.length < 1)
                     continue;
@@ -214,15 +160,12 @@ public class NoSQLClient {
                     case "UPDATE":
                         if (parts.length < 2) {
                             logger.error("缺少参数: 请提供集合名和{}数据", cmd.toLowerCase());
-                            printUsage(cmd);
                             break;
                         }
 
-                        // 智能解析集合名和JSON（处理集合名包含空格的情况）
                         String[] cmdParts = parts[1].split("\\s+", 2);
                         if (cmdParts.length < 2) {
                             logger.error("格式错误: 未找到有效的JSON文档");
-                            printUsage(cmd);
                             break;
                         }
 
@@ -238,22 +181,21 @@ public class NoSQLClient {
                     case "DELETE":
                         if (parts.length < 2) {
                             logger.error("缺少参数: 请提供集合名和文档ID");
-                            printUsage(cmd);
                             break;
                         }
 
                         String[] getDelParts = parts[1].split("\\s+", 2);
                         if (getDelParts.length < 2) {
                             logger.error("格式错误: 请提供有效的集合名和文档ID");
-                            printUsage(cmd);
                             break;
                         }
 
                         String getDelCollection = getDelParts[0];
                         String docId = getDelParts[1];
 
-                        OperationResult opResult = (cmd.equals("GET")) ? client.get(getDelCollection, docId)
-                                : client.delete(getDelCollection, docId);
+                        OperationResult opResult =
+                                (cmd.equals("GET")) ? client.get(getDelCollection, docId)
+                                        : client.delete(getDelCollection, docId);
 
                         logger.info("{}操作结果: {}", cmd,
                                 opResult.isSuccess()
@@ -274,29 +216,6 @@ public class NoSQLClient {
             logger.error("客户端运行错误: {}", e.getMessage());
         } finally {
             scanner.close();
-        }
-    }
-
-    // 打印命令用法示例
-    private static void printUsage(String cmd) {
-        switch (cmd) {
-            case "INSERT":
-                logger.info("用法: INSERT <集合名> <JSON文档>");
-                logger.info(
-                        "示例: INSERT users {\"name\":\"Alice\",\"age\":30,\"tags\":[\"admin\",\"user\"]}");
-                break;
-            case "UPDATE":
-                logger.info("用法: UPDATE <集合名> <JSON文档>");
-                logger.info("示例: UPDATE users {\"id\":\"123\",\"age\":31}");
-                break;
-            case "GET":
-                logger.info("用法: GET <集合名> <文档ID>");
-                logger.info("示例: GET users 123");
-                break;
-            case "DELETE":
-                logger.info("用法: DELETE <集合名> <文档ID>");
-                logger.info("示例: DELETE users 123");
-                break;
         }
     }
 

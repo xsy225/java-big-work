@@ -27,7 +27,6 @@ public class OperationResult implements Serializable {
                 data != null ? data.getClass().getSimpleName() : "null");
     }
 
-    // Getters
     public boolean isSuccess() {
         return success;
     }
@@ -40,7 +39,6 @@ public class OperationResult implements Serializable {
         return data;
     }
 
-    // 转换为JSON字符串
     public String toJson() {
         String json = gson.toJson(this);
         logger.trace("将操作结果转换为JSON: {}", json);

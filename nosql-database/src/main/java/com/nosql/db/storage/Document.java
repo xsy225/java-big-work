@@ -5,10 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
@@ -32,19 +30,16 @@ public class Document implements Serializable {
     }
 
     public Document(Map<String, Object> data) {
-        this(); // 调用无参构造生成ID
-        // 移除用户传入的"id"字段，避免覆盖自动生成的ID
+        this();
         data.remove("id");
         this.data = new HashMap<>(data);
         logger.debug("使用数据创建新文档，ID: {}", id);
     }
 
-    // Getters and Setters
     public String getId() {
         return id;
     }
 
-    // 设为私有方法，禁止外部修改ID
     private void setId(String id) {
         this.id = id;
     }
@@ -67,7 +62,6 @@ public class Document implements Serializable {
         this.updatedAt = System.currentTimeMillis();
     }
 
-    // Serialization
     public String toJson() {
         return gson.toJson(this);
     }

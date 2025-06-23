@@ -7,10 +7,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.nosql.db.index.IndexManager;
 import com.nosql.db.utils.FileUtils;
 
@@ -23,7 +21,8 @@ public class Collection {
     private final WriteAheadLog wal;
     private final IndexManager indexManager;
 
-    public Collection(String name, String dataDirectory, WriteAheadLog wal, IndexManager indexManager) {
+    public Collection(String name, String dataDirectory, WriteAheadLog wal,
+            IndexManager indexManager) {
         this.name = name;
         this.dataDirectory = dataDirectory;
         this.documents = new ConcurrentHashMap<>();
@@ -35,20 +34,15 @@ public class Collection {
         logger.info("集合{}初始化完成，文档数量: {}", name, documents.size());
     }
 
-    // 插入方法：先检查ID是否存在，再写入WAL
     public OperationResult insert(Document document) {
         lock.writeLock().lock();
         try {
-            // 关键修改：检查ID是否已存在
             if (documents.containsKey(document.getId())) {
                 logger.warn("插入失败: 文档ID已存在 {}", document.getId());
                 return new OperationResult(false, "Document ID已存在: " + document.getId());
             }
 
-            // 写入WAL日志
             wal.write("INSERT", name, document.toJson());
-
-            // 插入文档并更新索引
             documents.put(document.getId(), document);
             indexManager.updateIndex(name, document);
 
@@ -59,7 +53,6 @@ public class Collection {
         }
     }
 
-    // 其他方法保持不变
     public OperationResult update(Document document) {
         lock.writeLock().lock();
         try {
@@ -122,12 +115,10 @@ public class Collection {
     }
 
     private void loadDocuments() {
-        // 实际实现中应从文件系统加载文档
         logger.info("加载集合{}的文档", name);
     }
 
     private void saveDocuments() {
-        // 实际实现中应保存文档到文件系统
         logger.debug("保存集合{}的文档", name);
     }
 }

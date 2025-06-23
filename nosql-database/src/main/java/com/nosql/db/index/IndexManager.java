@@ -11,8 +11,7 @@ import com.nosql.db.storage.Document;
 
 public class IndexManager {
     private static final Logger logger = LoggerFactory.getLogger(IndexManager.class);
-    private final Map<String, Map<String, Map<String, Set<String>>>> indexes; // collection -> field
-                                                                              // -> value -> docIds
+    private final Map<String, Map<String, Map<String, Set<String>>>> indexes;
 
     public IndexManager(String dataDirectory) {
         this.indexes = new ConcurrentHashMap<>();
@@ -39,12 +38,10 @@ public class IndexManager {
             String field = entry.getKey();
             Map<String, Set<String>> valueMap = entry.getValue();
 
-            // 先删除旧的索引
             for (Set<String> ids : valueMap.values()) {
                 ids.remove(docId);
             }
 
-            // 添加新的索引
             Object value = document.get(field);
             if (value != null) {
                 String strValue = value.toString();

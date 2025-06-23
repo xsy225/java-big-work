@@ -3,11 +3,26 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch App",
+            "name": "Launch Server",
             "request": "launch",
             "mainClass": "com.nosql.db.App",
             "projectName": "nosql-database",
             "vmArgs": "-Xmx512m -XX:+UseG1GC"
+        },
+        {
+            "type": "java",
+            "name": "Launch Client",
+            "request": "launch",
+            "mainClass": "com.nosql.db.client.NoSQLClient",
+            "projectName": "nosql-database",
+            "args": ["localhost", "8888"]
+        },
+        {
+            "type": "java",
+            "name": "Launch Test Client",
+            "request": "launch",
+            "mainClass": "com.nosql.db.client.TestClient",
+            "projectName": "nosql-database"
         }
     ]
 }

@@ -6,7 +6,7 @@
     "java.configuration.runtimes": [
         {
             "name": "JavaSE-17",
-            "path": "D:\\Java\\jdk-17.0.15_windows-x64_bin\\jdk-17.0.15",
+            "path": "${java.home}",
             "default": true
         }
     ],
@@ -17,13 +17,6 @@
     },
     "java.errors.incompleteClasspath.severity": "warning",
     "maven.terminal.useJavaHome": true,
-    "maven.executable.path": "D:\\Maven\\apache-maven-3.9.9-bin\\apache-maven-3.9.9\\bin\\mvn.cmd",
-    "maven.terminal.customEnv": [
-        {
-            "environmentVariable": "JAVA_HOME",
-            "value": "D:\\Java\\jdk-17.0.15_windows-x64_bin\\jdk-17.0.15"
-        }
-    ],
     "java.debug.settings.console": "internalConsole",
     "debug.console.fontSize": 14,
     "files.exclude": {

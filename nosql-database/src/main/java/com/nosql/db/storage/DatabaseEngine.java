@@ -20,7 +20,6 @@ public class DatabaseEngine {
         logger.info("数据库引擎初始化完成，数据目录: {}", dataDirectory);
     }
 
-    // 创建集合
     public OperationResult createCollection(String collectionName) {
         logger.info("尝试创建集合: {}", collectionName);
         if (collections.containsKey(collectionName)) {
@@ -35,13 +34,11 @@ public class DatabaseEngine {
         return new OperationResult(true, "集合创建成功: " + collectionName);
     }
 
-    // 获取集合
     public Collection getCollection(String collectionName) {
         logger.debug("获取集合: {}", collectionName);
         return collections.get(collectionName);
     }
 
-    // 增删改查方法（委托给Collection）
     public OperationResult insertDocument(String collectionName, Document document) {
         logger.info("尝试插入文档到集合: {}, ID: {}", collectionName, document.getId());
         Collection coll = collections.get(collectionName);
@@ -63,7 +60,6 @@ public class DatabaseEngine {
                 : new OperationResult(false, "集合不存在: " + collectionName);
     }
 
-    // WAL 恢复
     public void recoverFromWal() {
         logger.info("开始从WAL恢复数据");
         try {
@@ -75,7 +71,6 @@ public class DatabaseEngine {
         }
     }
 
-    // 新增方法（修复ClientHandler的调用）
     public OperationResult getDocument(String collectionName, String id) {
         logger.info("尝试获取集合: {} 中的文档, ID: {}", collectionName, id);
         Collection coll = collections.get(collectionName);
